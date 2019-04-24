@@ -101,6 +101,11 @@ module.exports =
                 "modules": false
             ]
         ]
+
+    # Enable library mode. For reusable libraries we don't want to do babel transpilation and
+    # minification as this will be done by the downstream user. Babel can't ingest its own output.
+    is_library: false
+
     # Enable code coverage on coffeescript. ATM, this restricts you to CS 1.6,
     # so you might want to disable it.
     coffee_coverage: true
