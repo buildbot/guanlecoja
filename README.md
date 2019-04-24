@@ -248,6 +248,7 @@ You can see it in action at https://github.com/buildbot/buildbot/tree/master/www
 
 ### ChangeLog
 
+* 1.1.0: Add support to skip babel transpilation and minification for libraries.
 * 1.0.0: This package is not maintained for anything outside the Buildbot project.
          Added support for transcoding Javascript via babel.
 * 0.9.2: Upgrade dependencies. Add builtin support for JavaScript sources in addition to CoffeeScript.
