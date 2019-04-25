@@ -169,7 +169,7 @@ module.exports =  (gulp) ->
             .pipe gif(dev or config.sourcemaps, sourcemaps.init())
             .pipe cached('scripts')
             # babel build
-            .pipe(catch_errors(gif("*.js", babel(config.babel))))
+            .pipe(catch_errors(gif(not config.is_library, gif("*.js", babel(config.babel)))))
             # coffee build
             .pipe(catch_errors(gif("*.coffee", coffeeCompile().pipe(gif(prod, annotate())))))
             # jade build
@@ -180,7 +180,7 @@ module.exports =  (gulp) ->
             .pipe(catch_errors(gif("*.jjs", jadeConcat())))
             .pipe concat(config.output_scripts)
             # now everything is in js, do minification
-            .pipe gif(prod, uglify())
+            .pipe gif(prod and not config.is_library, uglify())
             .pipe gif(dev or config.sourcemaps, sourcemaps.write("."))
             .pipe gulp.dest config.dir.build
             .pipe gif(dev, lr())
@@ -191,10 +191,10 @@ module.exports =  (gulp) ->
             return
         gulp.src bower.deps
             .pipe gif(dev or config.sourcemaps, sourcemaps.init())
-            .pipe(catch_errors(gif("*.js", babel(config.babel))))
+            .pipe(catch_errors(gif(not config.is_library, gif("*.js", babel(config.babel)))))
             .pipe concat("vendors.js")
-            # now everything is in js, do angular annotation, and minification
-            .pipe gif(prod, uglify())
+            # now everything is in js, do minification
+            .pipe gif(prod and not config.is_library, uglify())
             .pipe gif(dev or config.sourcemaps, sourcemaps.write("."))
             .pipe gulp.dest config.dir.build
             .pipe gif(dev, lr())
