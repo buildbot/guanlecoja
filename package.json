@@ -44,7 +44,7 @@
     "@babel/preset-env": "^7.4.3",
     "@babel/runtime": "^7.4.3",
     "babel-plugin-angularjs-annotate": "^0.10.0",
-    "coffee-script": "~1.10.0",
+    "coffeescript": "~1.10.0",
     "gulp": "~3.9.0",
     "gulp-angular-templatecache": "^1.7.0",
     "gulp-babel": "^8.0.0",
