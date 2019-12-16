@@ -28,7 +28,9 @@ gif = vendors.gif
 babel = vendors.babel
 sourcemaps = vendors.sourcemaps
 coffee = vendors.coffee
-gutil = vendors.gutil
+log = vendors.fancylog
+beeper = vendors.beeper
+c = vendors.ansicolors
 annotate = vendors.annotate
 concat = vendors.concat
 cached = vendors.cached
@@ -58,9 +60,9 @@ module.exports =  (gulp) ->
     run_sequence = run_sequence.use(gulp)
     # standard gulp is not cs friendly (cgulp is). you need to register coffeescript first to be able to load cs files
     gulp = gulp_help gulp, afterPrintCallback: (tasks) ->
-        console.log(gutil.colors.underline("Options:"))
-        console.log(gutil.colors.cyan("  --coverage") + " Runs the test with coverage reports")
-        console.log(gutil.colors.cyan("  --notests") + "  Skip running the tests")
+        console.log(c.underline("Options:"))
+        console.log(c.cyan("  --coverage") + " Runs the test with coverage reports")
+        console.log(c.cyan("  --notests") + "  Skip running the tests")
         console.log("")
 
     # in prod mode, we uglify. in dev mode, we create sourcemaps
@@ -100,15 +102,15 @@ module.exports =  (gulp) ->
 
     catch_errors = (s) ->
         s.on "error", (e) ->
-            error = gutil.colors.bold.red
+            error = c.bold.red
             if e.filename? and e.location?
-                gutil.log(error("#{e.plugin}:#{e.name}: #{e.filename} +#{e.location.first_line}"))
+                log.error("#{e.plugin}:#{e.name}: #{e.filename} +#{e.location.first_line}")
             else if e.fileName?
-                gutil.log(error("#{e.plugin}:#{e.name}: #{e.fileName} +#{e.lineNumber}"))
+                log.error("#{e.plugin}:#{e.name}: #{e.fileName} +#{e.lineNumber}")
             else
-                gutil.log(error("#{e.plugin}:#{e.name}"))
-            gutil.log(error(e.message))
-            gutil.beep()
+                log.error("#{e.plugin}:#{e.name}")
+            log.error(e.message)
+            beeper()
             s.end()
             s.emit("end")
             if not dev

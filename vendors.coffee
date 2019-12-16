@@ -29,6 +29,9 @@ module.exports =
 
     _: require('lodash')
     coffee: require 'gulp-coffee'
+    fancylog: require 'fancy-log'
+    beeper: require 'beeper'
+    ansicolor: require 'ansi-colors'
     gutil: require 'gulp-util'
 
 global.vendors = module.exports
